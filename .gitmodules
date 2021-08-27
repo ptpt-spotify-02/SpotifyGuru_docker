@@ -1,0 +1,9 @@
+[submodule "SpotifyGuru_python_api"]
+	path = SpotifyGuru_python_api
+	url = https://github.com/ptpt-spotify-02/SpotifyGuru_python_api.git
+[submodule "SpotifyGuru_UI"]
+	path = SpotifyGuru_UI
+	url = https://github.com/ptpt-spotify-02/SpotifyGuru_UI.git
+[submodule "SpotifyGuru_node_api"]
+	path = SpotifyGuru_node_api
+	url = https://github.com/ptpt-spotify-02/SpotifyGuru_node_api.git
