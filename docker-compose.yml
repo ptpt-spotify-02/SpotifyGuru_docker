@@ -1,0 +1,45 @@
+version: '3.1'
+services:
+  mongo:
+    hostname: 'mongo.spotifyguru.com'
+    image: mongo:5.0.1
+    expose:
+      - '27017'
+    volumes:
+      - './data:/data/db'
+
+  frontend:
+    hostname: 'spotifyguru.com'
+    depends_on:
+      - 'mongo'
+    image: node:14-alpine
+    command: ['/bin/sh', '-c', 'npm install && npm run build && npm start -- -p 80']
+    working_dir: '/app'
+    ports:
+      - '80:80'
+    volumes:
+      - './SpotifyGuru_UI:/app'
+
+  node_api:
+    hostname: 'node_api.spotifyguru.com'
+    depends_on:
+      - 'frontend'
+    image: node:14-alpine
+    command: ['/bin/sh', '-c', 'npm install && npm start']
+    working_dir: '/app'
+    expose:
+      - '80'
+    volumes:
+      - './SpotifyGuru_node_api:/app'
+
+  python_api:
+    hostname: 'python_api.spotifyguru.com'
+    depends_on:
+      - 'node_api'
+    image: python:3.8
+    command: ['/bin/sh', '-c', 'pip install -r requirements.txt && python server.py']
+    working_dir: '/app'
+    expose:
+      - '80'
+    volumes:
+      - './SpotifyGuru_python_api:/app'
